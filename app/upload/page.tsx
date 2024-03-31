@@ -75,7 +75,7 @@ const Upload = () => {
       case 'droptext':
         return <p className='text-slate-400'>Drop the file</p>;
       default:
-        return <p className='text-slate-400'>Click to Upload</p>;
+        return <p className='text-slate-400'>Click to Add Image</p>;
     }
   };
 
@@ -92,12 +92,15 @@ const Upload = () => {
           {renderPreview()}
         </div>
       </div>
-      <form action={uploadImageAction} className=' w-full flex justify-center items-center' onSubmit={(e) => setPending(true)}>
+      <form action={uploadImageAction} className=' w-full flex flex-col justify-center items-center' onSubmit={(e) => setPending(true)}>
         <input type="file" name='file' className='hidden' ref={uploadRef} onChange={handleFileChange} />
         <button type='submit' disabled={pending} className=' mt-4 p-2 w-3/4 md:w-1/4 bg-blue-400 hover:bg-blue-600 disabled:hover:bg-blue-400 text-2xl font-medium transition-all ease-in-out duration-200 text-slate-50 rounded-lg flex justify-center items-center'>
           {pending ? <Loading /> : 'Upload Image'}
         </button>
       </form>
+      <p className='text-slate-400 text-xl py-4 px-8'>Note: Only images are allowed and max size is <b>4.5MB </b>
+        <br/>All images uploaded will be <b className=' uppercase'>publically available</b>
+      </p>
     </div>
   );
 };

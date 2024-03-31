@@ -30,7 +30,7 @@ const listAllObjects = async ({continueToken}: ListAllObjectsResponse) => {
 const putObject = async ({file} :any) => {
     const params = {
         Bucket: process.env.S3_BUCKET,
-        Key: file.origianlName,
+        Key: new Date().getTime() + '_' + file.origianlName,
         Body: file.buffer,
         ContentType: file.mimetype
       };

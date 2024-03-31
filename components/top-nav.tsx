@@ -20,8 +20,8 @@ const TopNav = () => {
         </div>
         <div>
             <Link href='/upload' className=' font-bold text-xl md:text-3xl flex justify-center bg-blue-400 hover:bg-blue-600 transition-all ease-in-out duration-200 p-2 rounded-xl shadow-md hover:shadow-slate-500 shadow-slate-600 text-slate-100 items-center'>
-                <p className=' px-1 md:px-2'>Upload</p>
-                <UploadIcon className=' text-lg md:text-3xl  border-2 rounded-full border-slate-100' />
+                <p className=' px-1 md:px-2 text-2xl'>Upload</p>
+                <UploadIcon className=' border-2 rounded-full border-slate-100' />
             </Link>
         </div>
     </div>

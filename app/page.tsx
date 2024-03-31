@@ -9,7 +9,7 @@ const Page = () => {
   const [imageUrls, setImageUrls] = useState<string[]>([])
   const [next, setNext] = useState<string>()
   const [loadMore, setLoadMore] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
     const fetchImages = async () => {
       setLoading(true)
@@ -34,7 +34,13 @@ const Page = () => {
         ))}
       </div>
       {
-        imageUrls.length === 0 && <p className="text-center text-3xl font-bold mt-4">No Images Found</p>
+        loading && 
+        <div className=' w-full h-56 flex justify-center items-center'>
+          <Loading/>
+        </div>
+      }
+      {
+        (imageUrls.length === 0 && !loading) && <p className="text-center h-56 flex justify-center items-center text-3xl font-bold mt-4">No Images Found</p>
       }
       {
         next && <button onClick={() => setLoadMore(!loadMore)} disabled={loading} className=" h-14 bg-blue-500 hover:bg-blue-700 flex justify-center items-center text-white font-bold py-2 px-4 rounded mt-4 w-full">

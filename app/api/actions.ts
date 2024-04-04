@@ -19,6 +19,7 @@ const uploadImageAction = async (formData: FormData) => {
             origianlName: file.name,
             buffer: fileBuffer,
             mimetype: file.type,
+            size: file.size,
         } })
         await revalidatePath('/')
         return redirect('/')

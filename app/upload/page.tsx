@@ -2,15 +2,21 @@
 import Image from 'next/image';
 import React, { useRef, useState } from 'react';
 import { uploadImageAction } from '../api/actions';
-import Loading from '@/components/loading';
+import { useFormState } from 'react-dom';
+import Submit from '@/components/submit-btn';
+import { toast } from 'react-toastify';
 
 const Upload = () => {
 
+  const initialState = {
+    message: '',
+    error: false
+  }
+  const [state, formAction] = useFormState<any, FormData>(uploadImageAction, initialState)
   const uploadRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<string>("");
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [fileType, setFileType] = useState<string | null>("");
-  const [pending, setPending] = useState(false);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
@@ -19,6 +25,14 @@ const Upload = () => {
       generatePreview(selectedFile);
     }
   };
+
+  if(state?.error && state?.message?.length > 0 ){
+    toast.error(state.message)
+  }
+
+  if(!state?.error && state?.message?.length > 0){
+    toast.info(state.message)
+  }
 
   const handleUpload = () => {
     if (uploadRef.current) {
@@ -92,14 +106,14 @@ const Upload = () => {
           {renderPreview()}
         </div>
       </div>
-      <form action={uploadImageAction} className=' w-full flex flex-col justify-center items-center' onSubmit={(e) => setPending(true)}>
+      <form action={formAction} className=' w-full flex flex-col justify-center items-center'>
         <input type="file" name='file' className='hidden' ref={uploadRef} onChange={handleFileChange} />
-        <button type='submit' disabled={pending} className=' mt-4 p-2 w-3/4 md:w-1/4 bg-blue-400 hover:bg-blue-600 disabled:hover:bg-blue-400 text-2xl font-medium transition-all ease-in-out duration-200 text-slate-50 rounded-lg flex justify-center items-center'>
-          {pending ? <Loading /> : 'Upload Image'}
-        </button>
+        <div className=' px-4 w-full flex justify-center items-center'>
+          <Submit />
+        </div>
       </form>
       <p className='text-slate-400 text-xl py-4 px-8'>Note: Only images are allowed and max size is <b>4.5MB </b>
-        <br/>All images uploaded will be <b className=' uppercase'>publically available</b>
+        <br />All images uploaded will be <b className=' uppercase'>publicaly available</b>
       </p>
     </div>
   );

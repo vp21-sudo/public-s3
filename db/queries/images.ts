@@ -11,7 +11,9 @@ const listImages = async ({ page }: { page: number}) => {
         const skip =  (page - 1) * pageSize
         const limit = pageSize
 
-        const totalCount = await imageModel.countDocuments()
+        const totalCount = await imageModel.countDocuments({
+            bucket: process.env.S3_BUCKET
+        })
         const images = await imageModel.find({
             bucket: process.env.S3_BUCKET
         })

@@ -7,6 +7,7 @@ import { redirect } from 'next/navigation'
 import { headers } from "next/headers"
 import { Ratelimit } from "@upstash/ratelimit";
 import { kv } from '@vercel/kv'
+import dbConnection from "@/db/connect"
 const ratelimit = new Ratelimit({
     redis: kv,
     limiter: Ratelimit.slidingWindow(5, '3600 s'),

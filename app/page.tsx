@@ -35,7 +35,7 @@ const Page = () => {
   }, [page])
   return (
     <>
-      <TopNav />
+        <TopNav />
       <div className="container mx-auto bg-slate-50 pb-24 md:pb-8 md:pt-28 px-8 md:px-28">
         <div className="grid grid-cols-min sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
           {imageUrls.map((url, index) => (

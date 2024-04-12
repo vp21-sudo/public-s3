@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import userModel from "./users";
 
 
 const imageSchema = new mongoose.Schema({
@@ -17,6 +18,11 @@ const imageSchema = new mongoose.Schema({
     },
     bucket: {
         type: String,
+        required: true
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: userModel,
         required: true
     }
 }, {

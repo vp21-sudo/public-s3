@@ -4,9 +4,11 @@ import { putObject } from "@/s3/s3-functions"
 import { revalidatePath } from "next/cache"
 import { isRedirectError } from "next/dist/client/components/redirect"
 import { redirect } from 'next/navigation'
-import { headers } from "next/headers"
+import { cookies, headers } from "next/headers"
 import { Ratelimit } from "@upstash/ratelimit";
 import { kv } from '@vercel/kv'
+import dbConnection from "@/db/connect"
+import { decryptData } from "@/utils/encryption"
 const ratelimit = new Ratelimit({
     redis: kv,
     limiter: Ratelimit.slidingWindow(5, '3600 s'),
@@ -16,7 +18,12 @@ const allowedImageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
 
 const uploadImageAction = async (setState: any, formData: FormData) => {
     try {
-
+        const cookieStore = cookies()
+        const sessionCookie = cookieStore.get("session")
+        if(!sessionCookie){
+            return "invalid_session"
+        }
+        const sessionData:any = await kv.get(decryptData(sessionCookie?.value))
         const file = formData.get('file') as File
         if (file.size <= 0) {
             return {message:"Please add an image", error: true}
@@ -46,6 +53,7 @@ const uploadImageAction = async (setState: any, formData: FormData) => {
                 buffer: fileBuffer,
                 mimetype: file.type,
                 size: file.size,
+                user: sessionData?.userId
             }
         })
         revalidatePath('/')

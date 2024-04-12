@@ -10,20 +10,20 @@ const GET = async (request: Request) => {
         let responseCode = "true"
         if (!user) {
             responseCode = "not_found"
-            return Response.redirect(`http://localhost:3000/login?email_verified=${responseCode}`)
+            return Response.redirect(`${process.env.BASE_URL}/login?email_verified=${responseCode}`)
         }
         if(user.email_verified){
             responseCode = 'already_verified'
-            return Response.redirect(`http://localhost:3000/login?email_verified=${responseCode}`)
+            return Response.redirect(`${process.env.BASE_URL}/login?email_verified=${responseCode}`)
         }
         user.email_verified = true
         user.email_verified_timestamp = new Date()
         await user.save()
-        return Response.redirect(`http://localhost:3000/login?email_verified=${responseCode}`)
+        return Response.redirect(`${process.env.BASE_URL}/login?email_verified=${responseCode}`)
     }
     catch (err) {
         console.log(err)
-        return Response.redirect("http://localhost:3000/login?email_verified=error")
+        return Response.redirect(`${process.env.BASE_URL}/login?email_verified=error`)
     }
 }
 

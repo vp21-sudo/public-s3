@@ -31,7 +31,7 @@ const verifyEmailTemplate = ({link, userName}: params) => {
         <tr>
           <td style="text-align: center;">
             <p>Thank you,</p>
-            <p>The To-Do-App Team</p>
+            <p>The Uplaod Team</p>
           </td>
         </tr>
       </table>

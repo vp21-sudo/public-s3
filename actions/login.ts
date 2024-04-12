@@ -59,7 +59,9 @@ const handleLoginForm = async (setState: any, formData: FormData) => {
       lastRequest: new Date().getTime(),
       expiry: 24 * 60 * 60 * 1000
     }))
-    cookies().set("session", encryptedSessionId)
+    cookies().set("session", encryptedSessionId, {
+      expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+    })
     return {
       message: "success",
       error: false

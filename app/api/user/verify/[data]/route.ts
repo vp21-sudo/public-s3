@@ -5,9 +5,7 @@ const GET = async (request: Request) => {
     try {
         const urlData = request.url.split("/")
         const encryptedData = urlData[urlData.length - 1]
-        console.log(encryptedData)
         const decryptedData = decryptData(encryptedData)
-        console.log(decryptedData)
         const user = await getUser(decryptedData)
         let responseCode = "true"
         if (!user) {

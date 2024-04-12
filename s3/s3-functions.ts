@@ -45,6 +45,7 @@ const listAllObjects = async ({ continueToken }: ListAllObjectsResponse) => {
 }
 
 const putObject = async ({ file }: any) => {
+    console.log(file)
     try {
         const timeStamp = new Date().getTime();
         const params = {
@@ -60,7 +61,8 @@ const putObject = async ({ file }: any) => {
             name: file.origianlName,
             url: timeStamp + '_' + file.origianlName,
             size: file.size,
-            bucket: process.env.S3_BUCKET
+            bucket: process.env.S3_BUCKET,
+            user: file.user
         })
         await imageData.save();
         return 'success';

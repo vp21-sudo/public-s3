@@ -76,7 +76,6 @@ const LoginTab = ({setShowVerify}: any) => {
         }
         if(!state.error && state.message.length > 0){
           toast.success("Login successful.")
-          console.log("This is executed")
           redirect("/upload")
         }
       }, [state.error, state.message.email, state.message.password, state, setShowVerify]);

@@ -54,7 +54,6 @@ const handleRegistrationForm = async (setState: any, formData: FormData) => {
             email: validatedFields.data.email,
             password: await hashPassword(validatedFields.data.password)
         })
-        console.log(user)
         // send verification email to user
         const verificationLink = `${process.env.BASE_URL}/api/user/verify/${enctryptData(user._id?.toString())}`;
         await sendEmail({ to: user.email, subject: "Verify your email", html: verifyEmailTemplate({link: verificationLink, userName: user?.username}) })

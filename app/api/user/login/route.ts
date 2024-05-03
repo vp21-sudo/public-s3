@@ -24,7 +24,7 @@ const POST = async (req: NextRequest) => {
             }, { status: 400 })
         }
         // get the user data from the DB and match the password
-        const user = await getUserByEmail(validatedFields.data.email)
+        const user = await getUserByEmail(validatedFields.data.email?.toLocaleLowerCase())
         if (!user) {
             return NextResponse.json({
                 message: "User not found, Please register.",

@@ -6,9 +6,13 @@ import imageModel from "../models/images";
 // function to list images with pagination
 const listImages = async ({ page }: { page: number}) => {
     try {
+        let pageCk = page
+        if(page <=0){
+            pageCk = 1
+        }
         await dbConnection()
         const pageSize = 8
-        const skip =  (page - 1) * pageSize
+        const skip =  (pageCk - 1) * pageSize
         const limit = pageSize
 
         const totalCount = await imageModel.countDocuments({
@@ -31,7 +35,7 @@ const listImages = async ({ page }: { page: number}) => {
         })
         return {
             total_pages: Math.ceil(totalCount / pageSize),
-            page: page,
+            page: pageCk,
             pageSize: pageSize,
             updatedImages
         }

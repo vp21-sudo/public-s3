@@ -15,7 +15,7 @@ const schema = z.object({
 const POST = async (req: NextRequest) => {
     try {
         const body = await req.json()
-        // input validation
+        // input validationLoginSchema
         const validatedFields = schema.safeParse(body)
         // Return early if the form data is invalid
         if (!validatedFields.success) {

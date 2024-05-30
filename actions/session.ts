@@ -12,7 +12,10 @@ const checkUserSession = async () =>  {
         }
         const decryptedSessionId = decryptData(sessionCookie?.value)
         const sessionData: any = await kv.get(decryptedSessionId)
-        if(new Date().getTime() > (sessionData?.lastRequest + sessionData.expiry)){
+        if(!sessionData){
+            return "invalid_session"
+        }
+        if(sessionData && new Date().getTime() > (sessionData?.lastRequest + sessionData?.expiry)){
             kv.del(decryptedSessionId)
             return "session_timeout"
         }

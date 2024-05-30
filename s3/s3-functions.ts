@@ -45,7 +45,6 @@ const listAllObjects = async ({ continueToken }: ListAllObjectsResponse) => {
 }
 
 const putObject = async ({ file }: any) => {
-    console.log(file)
     try {
         const timeStamp = new Date().getTime();
         const params = {

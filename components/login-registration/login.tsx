@@ -74,7 +74,7 @@ const LoginTab = ({setShowVerify}: any) => {
             return
           }
         }
-        if(!state.error && state.message.length > 0){
+        if(!state.error && state.message?.length > 0){
           toast.success("Login successful.")
           redirect("/upload")
         }
@@ -140,7 +140,6 @@ const VerifyEmailTab =({setShowVerify}: any) => {
         error: false
     }
     const [state, formAction] = useFormState<any, any>(handleResendEmail, initialState)
-    console.log(state)
     useEffect(() => {
       if (state.error) {
         if (state.message.email) {
